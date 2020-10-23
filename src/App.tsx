@@ -1,11 +1,4 @@
-import React from 'react';
+import React from "react";
+import Router from "./Router";
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Helloasd react!</h1>
-    </div>
-  );
-}
-
-export default App;
+export default () => <Router />;
