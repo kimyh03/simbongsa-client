@@ -4,11 +4,11 @@ export const defaults = {
 
 export const resolvers = {
   Mutation: {
-    logUserIn: (token: string) => {
+    localSignIn: (_: any, { token }: any) => {
       localStorage.setItem("token", token);
       return null;
     },
-    logUserOut: () => {
+    localSignOut: (_: any, __: any) => {
       localStorage.removeItem("token");
       window.location.reload();
       return null;
