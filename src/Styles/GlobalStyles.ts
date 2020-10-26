@@ -5,6 +5,11 @@ export default createGlobalStyle`
     ${reset};
     *{
         box-sizing:border-box;
+        font-family: "맑은고딕";
     }
-    
+    button{
+        outline:none;
+        border:none;
+        cursor:pointer;
+    }
 `;

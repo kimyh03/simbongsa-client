@@ -10,8 +10,8 @@ import Profile from "./Routes/Profile";
 export default () => (
   <BrowserRouter>
     <Switch>
-      <Route path={"/auth"} exact={true} component={Auth} />
       <Route path={"/"} exact={true} component={Home} />
+      <Route path={"/auth"} exact={true} component={Auth} />
       <Route path={"/post/create"} exact={true} component={PostCreate} />
       <Route path={"/post/:id"} exact={true} component={PostDetail} />
       <Route path={"/post/:id/edit"} exact={true} component={PostEdit} />
