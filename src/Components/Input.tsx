@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 interface IProps {
   type?: string;
-  placeholder: string;
+  placeholder?: string;
   required?: boolean;
   value: string | number;
   onChange: (event: React.FormEvent<HTMLInputElement>) => void;
@@ -15,6 +15,7 @@ const Container = styled.input`
   font-size: 14px;
   text-align: center;
   margin-bottom: 10px;
+  color: ${(props) => props.theme.orangeColor};
   border: ${(props) => props.theme.border};
   :focus {
     outline: ${(props) => props.theme.borderFocus};
@@ -23,7 +24,7 @@ const Container = styled.input`
 
 const Input: React.FC<IProps> = ({
   type = "text",
-  placeholder,
+  placeholder = "",
   required = true,
   value,
   onChange,
