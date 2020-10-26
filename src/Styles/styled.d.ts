@@ -7,5 +7,6 @@ declare module "styled-components" {
     orangeColor: string;
     border: string;
     darkGreyColor: string;
+    borderFocus: string;
   }
 }
