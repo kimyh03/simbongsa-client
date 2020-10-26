@@ -72,7 +72,7 @@ export default () => (
         <Logo></Logo>
       </a>
       <a href={"/auth"}>
-        <LoginBtn>로그인</LoginBtn>
+        <LoginBtn>로그인 / 회원가입</LoginBtn>
       </a>
     </Header>
   </>
