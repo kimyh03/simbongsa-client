@@ -5,6 +5,10 @@ import Header from "./Components/Header";
 import Router from "./Router";
 import GlobalStyles from "./Styles/GlobalStyles";
 import Theme from "./Styles/Theme";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { gql } from "apollo-boost";
+import { useQuery } from "react-apollo";
 
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -12,13 +16,23 @@ const Wrapper = styled.div`
   min-height: 90vh;
 `;
 
-export default () => (
-  <ThemeProvider theme={Theme}>
-    <GlobalStyles />
-    <Header />
-    <Wrapper>
-      <Router />
-    </Wrapper>
-    <Footer />
-  </ThemeProvider>
-);
+const GET_ISLOGGEDIN = gql`
+  {
+    isLoggedIn @client
+  }
+`;
+
+export default () => {
+  const { data } = useQuery(GET_ISLOGGEDIN);
+  return (
+    <ThemeProvider theme={Theme}>
+      <GlobalStyles />
+      <Header isLoggedIn={data?.isLoggedIn} />
+      <Wrapper>
+        <Router />
+        <ToastContainer position={"bottom-left"} />
+      </Wrapper>
+      <Footer />
+    </ThemeProvider>
+  );
+};
