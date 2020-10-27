@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 import { gql } from "apollo-boost";
 import React from "react";
-import { useMutation, useQuery } from "react-apollo";
+import { useQuery } from "react-apollo";
 import styled, { keyframes } from "styled-components";
 import logo from "../Assets/logo.png";
 import Avatar from "./Avatar";
@@ -79,12 +79,6 @@ const Name = styled.div`
   font-size: 17px;
 `;
 
-const LOCAL_LOG_OUT = gql`
-  mutation localSignOut {
-    localSignOut @client
-  }
-`;
-
 const GET_ME = gql`
   query getMe {
     getMe {
@@ -102,8 +96,6 @@ interface IProps {
 }
 
 const Header: React.FC<IProps> = ({ isLoggedIn }) => {
-  const [localLogOut] = useMutation(LOCAL_LOG_OUT);
-
   const { data, loading } = useQuery(GET_ME);
 
   return (
