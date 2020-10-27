@@ -2,6 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import styled from "styled-components";
 import Avatar from "../../Components/Avatar";
+import Buble from "../../Components/Buble";
 import { Application } from "../../Entities/Application.entity";
 import { Like } from "../../Entities/Like.entity";
 import { User } from "../../Entities/User.entity";
@@ -16,15 +17,11 @@ const Container = styled.div`
 const Section = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: 90%;
-  margin: 0;
-  margin: auto;
+  margin-top: 50px;
 `;
 
 const Title = styled.div`
   padding: 10px;
-  margin-top: 20px;
   font-size: 25px;
   font-weight: 700;
 `;
@@ -57,41 +54,6 @@ const UserEmail = styled.div`
   opacity: 0.7;
   margin-top: 10px;
 `;
-const Bubble = styled.div`
-  width: 150px;
-  height: 150px;
-  border-radius: 20px;
-  border: ${(props) => props.theme.border};
-  margin: 0 30px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const BubleText = styled.div`
-  font-size: 40px;
-  color: ${(props) => props.theme.deppOrangeColor};
-`;
-
-const BubleSubText = styled.div`
-  margin-left: 5px;
-  margin-top: 12px;
-  font-weight: 700;
-  opacity: 0.7;
-`;
-
-const BubleContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const BubleTitle = styled.div`
-  font-size: 16px;
-  opacity: 0.7;
-  margin-top: 7px;
-  font-weight: 700;
-`;
 
 interface IProps {
   onClickLogOut: () => void;
@@ -108,7 +70,7 @@ const ProfilePresenter: React.FC<IProps> = ({
   likes,
   applications,
 }) => {
-  console.log(user);
+  const postCount = user.posts?.length || 0;
   return (
     <Container>
       <Helmet>
@@ -126,20 +88,9 @@ const ProfilePresenter: React.FC<IProps> = ({
             <Username>{user.username}</Username>
             <UserEmail>{user.email}</UserEmail>
           </DetailCoulmn>
-          <BubleContainer>
-            <Bubble>
-              <BubleText>{user.activityCount}</BubleText>
-              <BubleSubText>건</BubleSubText>
-            </Bubble>
-            <BubleTitle>활동내역</BubleTitle>
-          </BubleContainer>
-          <BubleContainer>
-            <Bubble>
-              <BubleText>{user.activityTime}</BubleText>
-              <BubleSubText>시간</BubleSubText>
-            </Bubble>
-            <BubleTitle>활동시간</BubleTitle>
-          </BubleContainer>
+          <Buble title={"모집내역"} text={postCount} subText={"건"} />
+          <Buble title={"활동내역"} text={user.activityCount} subText={"건"} />
+          <Buble title={"활동시간"} text={user.activityTime} subText={"시간"} />
         </ProfileCard>
       </Section>
     </Container>
