@@ -5,7 +5,11 @@ export default createGlobalStyle`
     ${reset};
     *{
         box-sizing:border-box;
-        font-family: "맑은고딕";
+
+    }
+    body{
+        @import url('https://fonts.googleapis.com/earlyaccess/notosanskr.css');
+        font-family: "Noto Sans KR",Arial, sans-serif !important;
     }
     button{
         outline:none;
