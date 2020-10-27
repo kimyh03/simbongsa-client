@@ -9,5 +9,6 @@ declare module "styled-components" {
     darkGreyColor: string;
     borderFocus: string;
     deppOrangeColor: string;
+    borderBold: string;
   }
 }

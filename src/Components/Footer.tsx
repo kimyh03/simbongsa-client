@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   height: 90px;
-  border-top: ${(props) => props.theme.border};
+  border-top: ${(props) => props.theme.borderBold};
   background-color: #fafafa;
   display: flex;
   align-items: center;

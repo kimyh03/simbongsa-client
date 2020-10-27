@@ -8,13 +8,13 @@ import Avatar from "./Avatar";
 
 const BlinkEffect = keyframes`
 0%  {
-    opacity:0.6; 
+    opacity:0.8; 
     }
 50% {
   opacity:1;
     }
 100%{
-    opacity:0.6; 
+    opacity:0.8; 
     }
 `;
 
@@ -29,7 +29,7 @@ const Banner = styled.div`
   font-weight: 700;
   letter-spacing: 5px;
   font-family: "맑은 고딕";
-  animation: ${BlinkEffect} 1.2s infinite;
+  animation: ${BlinkEffect} 0.5s infinite;
 `;
 
 const Imoji = styled.span``;
@@ -38,7 +38,7 @@ const Container = styled.div`
   height: 100px;
   opacity: 0.9;
   padding: 0 100px;
-  border-bottom: ${(props) => props.theme.border};
+  border-bottom: ${(props) => props.theme.borderBold};
   align-items: center;
   justify-content: space-between;
   display: flex;
