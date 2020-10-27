@@ -1,14 +1,135 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import styled from "styled-components";
+import Avatar from "../../Components/Avatar";
+import { Application } from "../../Entities/Application.entity";
+import { Like } from "../../Entities/Like.entity";
+import { User } from "../../Entities/User.entity";
 
 const Container = styled.div``;
 
-export default () => (
-  <Container>
-    <Helmet>
-      <title>Profile | 자원봉사1365</title>
-    </Helmet>
-    Profile
-  </Container>
-);
+const Title = styled.div`
+  width: 90%;
+  padding: 10px;
+  margin-top: 20px;
+  color: ${(props) => props.theme.deppOrangeColor};
+  font-size: 25px;
+  font-weight: 700;
+`;
+
+const ProfileCard = styled.div`
+  margin-top: 20px;
+  display: flex;
+  width: 90%;
+  padding: 50px;
+  height: 250px;
+  align-items: center;
+  border: ${(props) => props.theme.border};
+  border-radius: 10px;
+`;
+const AvatarCoulmn = styled.div`
+  margin: 0 50px;
+`;
+const DetailCoulmn = styled.div`
+  height: 100%;
+  margin-right: 150px;
+  margin-top: 20px;
+`;
+const Username = styled.div`
+  color: ${(props) => props.theme.deppOrangeColor};
+  opacity: 0.8;
+  font-size: 30px;
+  font-weight: 700;
+`;
+const UserEmail = styled.div`
+  font-size: 15px;
+  opacity: 0.5;
+  margin-top: 10px;
+`;
+const Bubble = styled.div`
+  width: 150px;
+  height: 150px;
+  border-radius: 20px;
+  border: 3px solid #e0dede;
+  margin: 0 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const BubleText = styled.div`
+  color: ${(props) => props.theme.deppOrangeColor};
+  font-size: 40px;
+  opacity: 0.8;
+`;
+
+const BubleSubText = styled.div`
+  margin-left: 5px;
+  margin-top: 12px;
+  font-weight: 700;
+  opacity: 0.5;
+`;
+
+const BubleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const BubleTitle = styled.div`
+  font-size: 16px;
+  opacity: 0.5;
+  margin-top: 7px;
+  font-weight: 700;
+`;
+
+interface IProps {
+  onClickLogOut: () => void;
+  isSelf: boolean;
+  user: User;
+  likes: Like[];
+  applications: Application[];
+}
+
+const ProfilePresenter: React.FC<IProps> = ({
+  onClickLogOut,
+  isSelf,
+  user,
+  likes,
+  applications,
+}) => {
+  console.log(user);
+  return (
+    <Container>
+      <Helmet>
+        <title>Profile | 자원봉사1365</title>
+      </Helmet>
+      <Title>● 내정보</Title>
+      <ProfileCard>
+        <AvatarCoulmn>
+          <Avatar size={"150px"} />
+        </AvatarCoulmn>
+        <DetailCoulmn>
+          <Username>{user.username}</Username>
+          <UserEmail>{user.email}</UserEmail>
+        </DetailCoulmn>
+        <BubleContainer>
+          <Bubble>
+            <BubleText>{user.activityCount}</BubleText>
+            <BubleSubText>건</BubleSubText>
+          </Bubble>
+          <BubleTitle>활동내역</BubleTitle>
+        </BubleContainer>
+        <BubleContainer>
+          <Bubble>
+            <BubleText>{user.activityTime}</BubleText>
+            <BubleSubText>시간</BubleSubText>
+          </Bubble>
+          <BubleTitle>활동시간</BubleTitle>
+        </BubleContainer>
+      </ProfileCard>
+    </Container>
+  );
+};
+
+export default ProfilePresenter;
