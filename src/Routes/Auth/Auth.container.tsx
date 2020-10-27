@@ -40,6 +40,7 @@ export default () => {
           } = await signUp();
           if (token) {
             await localSignIn({ variables: { token } });
+            window.location.href = "/";
           } else {
             throw new Error("이미 존재하는 닉네임 혹은 이메일 입니다.");
           }

@@ -1,7 +1,10 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
+import { gql } from "apollo-boost";
 import React from "react";
+import { useMutation, useQuery } from "react-apollo";
 import styled, { keyframes } from "styled-components";
 import logo from "../Assets/logo.png";
+import Avatar from "./Avatar";
 
 const BlinkEffect = keyframes`
 0%  {
@@ -31,7 +34,7 @@ const Banner = styled.div`
 
 const Imoji = styled.span``;
 
-const Header = styled.div`
+const Container = styled.div`
   height: 100px;
   opacity: 0.9;
   padding: 0 100px;
@@ -41,7 +44,9 @@ const Header = styled.div`
   display: flex;
 `;
 
-const Spacer = styled.div``;
+const Spacer = styled.div`
+  width: 250px;
+`;
 
 const Logo = styled.div`
   height: 30px;
@@ -55,25 +60,87 @@ const LoginBtn = styled.button`
   border: ${(props) => props.theme.border};
 `;
 
-export default () => (
-  <>
-    <Banner>
-      <Imoji role="img" aria-label="smile">
-        😊
-      </Imoji>
-      김영훈 kimyh03@gmail.com
-      <Imoji role="img" aria-label="smile">
-        😘
-      </Imoji>
-    </Banner>
-    <Header>
-      <Spacer />
-      <a href={"/"}>
-        <Logo></Logo>
-      </a>
-      <a href={"/auth"}>
-        <LoginBtn>로그인 / 회원가입</LoginBtn>
-      </a>
-    </Header>
-  </>
-);
+const Profile = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Greeting = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-left: 10px;
+`;
+
+const Name = styled.div`
+  color: ${(props) => props.theme.deppOrangeColor};
+  font-weight: 700;
+  opacity: 0.7;
+  font-size: 17px;
+`;
+
+const LOCAL_LOG_OUT = gql`
+  mutation localSignOut {
+    localSignOut @client
+  }
+`;
+
+const GET_ME = gql`
+  query getMe {
+    getMe {
+      user {
+        id
+        username
+        avatar
+      }
+    }
+  }
+`;
+
+interface IProps {
+  isLoggedIn: boolean;
+}
+
+const Header: React.FC<IProps> = ({ isLoggedIn }) => {
+  const [localLogOut] = useMutation(LOCAL_LOG_OUT);
+
+  const { data, loading } = useQuery(GET_ME);
+
+  return (
+    <>
+      <Banner>
+        <Imoji role="img" aria-label="smile">
+          😊
+        </Imoji>
+        김영훈 kimyh03@gmail.com
+        <Imoji role="img" aria-label="smile">
+          😘
+        </Imoji>
+      </Banner>
+      <Container>
+        <Spacer />
+        <a href={"/"}>
+          <Logo></Logo>
+        </a>
+        <Spacer>
+          {!loading && isLoggedIn ? (
+            <a href={`/profile/${data?.getMe?.user?.id}`}>
+              <Profile>
+                <Avatar />
+                <Greeting>
+                  <Name>{data?.getMe?.user?.username} </Name> 님 안녕하세요!
+                </Greeting>
+              </Profile>
+            </a>
+          ) : (
+            <a href={"/auth"}>
+              <LoginBtn>로그인</LoginBtn>
+            </a>
+          )}
+        </Spacer>
+      </Container>
+    </>
+  );
+};
+
+export default Header;

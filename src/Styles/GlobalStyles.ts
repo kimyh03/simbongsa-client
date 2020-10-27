@@ -12,4 +12,8 @@ export default createGlobalStyle`
         border:none;
         cursor:pointer;
     }
+    a{
+        text-decoration:none;
+        color:inherit;
+    }
 `;

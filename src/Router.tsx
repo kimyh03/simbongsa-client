@@ -15,7 +15,7 @@ export default () => (
       <Route path={"/post/create"} exact={true} component={PostCreate} />
       <Route path={"/post/:id"} exact={true} component={PostDetail} />
       <Route path={"/post/:id/edit"} exact={true} component={PostEdit} />
-      <Route path={"/Profile"} exact={true} component={Profile} />
+      <Route path={"/profile/:id"} exact={true} component={Profile} />
     </Switch>
   </BrowserRouter>
 );

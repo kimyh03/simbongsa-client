@@ -120,7 +120,7 @@ const AuthPresenter: React.FC<IProps> = ({
         <Button>회원가입</Button>
         <MessageWrapper>
           <Message>이미 계정이 있으신가요?</Message>
-          <AuthState onClick={() => setAction("LogIn")}>회원가입</AuthState>
+          <AuthState onClick={() => setAction("LogIn")}>로그인</AuthState>
         </MessageWrapper>
       </Form>
     )}
