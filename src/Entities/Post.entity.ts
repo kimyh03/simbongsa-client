@@ -22,11 +22,11 @@ export enum postRigionEnum {
 
 export interface Post {
   id: number;
-  createdAt: Date;
+  createdAt: string;
   title: string;
   description: string;
   category: postCategoryEnum;
-  date: Date;
+  date: string;
   rigion: postRigionEnum;
   adress: string;
   host: string;

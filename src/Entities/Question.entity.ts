@@ -4,7 +4,7 @@ import { User } from "./User.entity";
 
 export interface Question {
   id: number;
-  createdAt: Date;
+  createdAt: string;
   text: string;
   user: User;
   userId: number;

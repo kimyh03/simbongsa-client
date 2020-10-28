@@ -9,7 +9,7 @@ export enum applicationStatus {
 
 export interface Application {
   id: number;
-  createdAt: Date;
+  createdAt: string;
   status: applicationStatus;
   user: User;
   userId: number;

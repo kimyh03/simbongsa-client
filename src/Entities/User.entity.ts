@@ -1,12 +1,12 @@
-import { Certificate } from "crypto";
 import { Application } from "./Application.entity";
+import { Certificate } from "./Certificate.entity";
 import { Like } from "./Like.entity";
 import { Post } from "./Post.entity";
 import { Question } from "./Question.entity";
 
 export interface User {
   id: number;
-  createdAt: Date;
+  createdAt: string;
   email: string;
   username: string;
   password: string;

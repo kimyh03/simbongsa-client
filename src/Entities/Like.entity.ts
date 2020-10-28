@@ -3,7 +3,7 @@ import { User } from "./User.entity";
 
 export interface Like {
   id: number;
-  createdAt: Date;
+  createdAt: string;
   user: User;
   userId: number;
   post: Post;

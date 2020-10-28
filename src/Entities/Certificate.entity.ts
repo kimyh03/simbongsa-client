@@ -2,11 +2,11 @@ import { User } from "./User.entity";
 
 export interface Certificate {
   id: number;
-  createdAt: Date;
+  createdAt: string;
   title: string;
   host: string;
   recognizedHours: number;
-  date: Date;
+  date: string;
   user: User;
   userId: number;
 }
