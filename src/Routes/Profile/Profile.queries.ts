@@ -26,6 +26,8 @@ export const GET_PROFILE = gql`
           rigion
           host
           isOpened
+          NumOfRecruitment
+          recognizedHours
         }
         certificates {
           id
@@ -38,6 +40,7 @@ export const GET_PROFILE = gql`
       applications {
         id
         status
+        createdAt
         post {
           id
           title
@@ -47,6 +50,7 @@ export const GET_PROFILE = gql`
           rigion
           host
           isOpened
+          recognizedHours
         }
       }
       likes {
@@ -61,6 +65,7 @@ export const GET_PROFILE = gql`
           rigion
           host
           isOpened
+          recognizedHours
         }
       }
     }
