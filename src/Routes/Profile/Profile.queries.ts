@@ -26,6 +26,7 @@ export const GET_PROFILE = gql`
           rigion
           host
           isOpened
+          isCompleted
           NumOfRecruitment
           recognizedHours
         }
@@ -50,6 +51,7 @@ export const GET_PROFILE = gql`
           rigion
           host
           isOpened
+          isCompleted
           recognizedHours
         }
       }
@@ -65,6 +67,7 @@ export const GET_PROFILE = gql`
           rigion
           host
           isOpened
+          isCompleted
           recognizedHours
         }
       }

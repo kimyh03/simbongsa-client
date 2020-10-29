@@ -73,18 +73,28 @@ const Table: React.FC<IProps> = ({
         <TableHeader headerOptions={headerOptions} />
         <Body>
           <>
-            {posts?.map((post, index) => (
-              <BodyRow key={index}>
-                <DataCell>{index + 1}</DataCell>
-                <DataCell>{post.host}</DataCell>
-                <DataCell>
-                  <a href={`/post/${post.id}`}>{post.title}</a>
-                </DataCell>
-                <DataCell>{post.recognizedHours}</DataCell>
-                <DataCell>{post.date.slice(0, 10)}</DataCell>
-                <DataCell>{post.isOpened ? "모집중" : "모집종료"}</DataCell>
-              </BodyRow>
-            ))}
+            {posts?.map((post, index) => {
+              let status;
+              if (post.isCompleted) {
+                status = "활동종료";
+              } else if (post.isOpened) {
+                status = "모집중";
+              } else {
+                status = "모집종료";
+              }
+              return (
+                <BodyRow key={index}>
+                  <DataCell>{index + 1}</DataCell>
+                  <DataCell>{post.host}</DataCell>
+                  <DataCell>
+                    <a href={`/post/${post.id}`}>{post.title}</a>
+                  </DataCell>
+                  <DataCell>{post.recognizedHours}</DataCell>
+                  <DataCell>{post.date.slice(0, 10)}</DataCell>
+                  <DataCell>{status}</DataCell>
+                </BodyRow>
+              );
+            })}
           </>
         </Body>
       </Container>
@@ -117,20 +127,28 @@ const Table: React.FC<IProps> = ({
         <TableHeader headerOptions={headerOptions} />
         <Body>
           <>
-            {likes?.map((like, index) => (
-              <BodyRow key={index}>
-                <DataCell>{index + 1}</DataCell>
-                <DataCell>{like.post.host}</DataCell>
-                <DataCell>
-                  <a href={`/post/${like.post.id}`}>{like.post.title}</a>
-                </DataCell>
-                <DataCell>{like.post.recognizedHours}</DataCell>
-                <DataCell>{like.post.date.slice(0, 10)}</DataCell>
-                <DataCell>
-                  {like.post.isOpened ? "모집중" : "모집종료"}
-                </DataCell>
-              </BodyRow>
-            ))}
+            {likes?.map((like, index) => {
+              let status;
+              if (like.post.isCompleted) {
+                status = "활동종료";
+              } else if (like.post.isOpened) {
+                status = "모집중";
+              } else {
+                status = "모집종료";
+              }
+              return (
+                <BodyRow key={index}>
+                  <DataCell>{index + 1}</DataCell>
+                  <DataCell>{like.post.host}</DataCell>
+                  <DataCell>
+                    <a href={`/post/${like.post.id}`}>{like.post.title}</a>
+                  </DataCell>
+                  <DataCell>{like.post.recognizedHours}</DataCell>
+                  <DataCell>{like.post.date.slice(0, 10)}</DataCell>
+                  <DataCell>{status}</DataCell>
+                </BodyRow>
+              );
+            })}
           </>
         </Body>
       </Container>
@@ -142,7 +160,6 @@ const Table: React.FC<IProps> = ({
         <Body>
           <>
             {applications?.map((application, index) => {
-              console.log(typeof application.status);
               let status;
               if (application.status === applicationStatus.pendding)
                 status = "심사중";
