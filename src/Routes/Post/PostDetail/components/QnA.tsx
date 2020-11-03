@@ -6,8 +6,6 @@ import { Dot } from "../../../../Utils/Icons";
 import { UseInputIterface } from "../../../../Utils/UseInputInterface";
 
 const Container = styled.div`
-  height: 350px;
-
   border: ${(props) => props.theme.border};
 `;
 const Header = styled.div`
@@ -22,37 +20,102 @@ const Title = styled.div`
   font-size: 20px;
   margin-left: 20px;
 `;
-const Wrapper = styled.div`
+const AskForm = styled.div`
   display: flex;
+  justify-content: space-between;
 `;
 const QInput = styled.input`
   width: 90%;
+  margin: 5px;
   padding: 40px 200px;
+  border: ${(props) => props.theme.border};
+  :focus {
+    outline: ${(props) => props.theme.borderFocus};
+  }
+  :hover {
+    outline: ${(props) => props.theme.borderFocus};
+  }
 `;
 const QButton = styled.button`
   width: 10%;
+  margin: 5px;
 `;
-const AInput = styled.input``;
-const AButton = styled.button``;
-const QnAContainer = styled.div`
+const AInput = styled.input`
+  width: 90%;
+  margin: 5px;
+  padding: 15px;
+  border: ${(props) => props.theme.border};
+  :focus {
+    outline: ${(props) => props.theme.borderFocus};
+  }
+  :hover {
+    outline: ${(props) => props.theme.borderFocus};
+  }
+`;
+const AButton = styled.button`
+  width: 10%;
+`;
+const QnAList = styled.div`
   padding: 50px;
-  height: 200px;
+  max-height: 500px;
   overflow: auto;
 `;
+const QContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: 90%;
+  margin-bottom: 15px;
+  background-color: ${(props) => props.theme.greyBgColor};
+  border-radius: 20px;
+  padding: 20px;
+`;
+const QUser = styled.div`
+  display: flex;
+  cursor: pointer;
+  width: 100px;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  :hover {
+    color: ${(props) => props.theme.deppOrangeColor};
+  }
+`;
+const QText = styled.div`
+  margin-left: 30px;
+`;
+const AContainer = styled.form`
+  margin-top: 10px;
+  display: flex;
+  justify-self: flex-end;
+  align-self: flex-end;
+`;
+const Answer = styled.div`
+  background-color: #cecece;
+  padding: 20px;
+  padding-right: 100px;
+  border-radius: 20px;
+  justify-self: flex-end;
+  align-self: flex-end;
+  text-align: right;
+`;
+
 const QnAItem = styled.div`
   display: flex;
+  width: 100%;
+  flex-direction: column;
+  margin-bottom: 50px;
 `;
-const QUser = styled.div``;
-const QText = styled.div``;
-const AnswerForm = styled.div``;
-const Answer = styled.div``;
+const Row = styled.div`
+  justify-self: flex-end;
+  align-self: flex-end;
+  width: 80%;
+`;
 
 interface IProps {
   questions: Question[];
   handleQSubmit: () => Promise<void>;
   questionText: UseInputIterface;
-  handleASubmit: () => Promise<void>;
-  answerText: UseInputIterface;
+  handleASubmit: (event: React.FormEvent) => void;
   isMine: boolean;
 }
 
@@ -61,49 +124,44 @@ const QnA: React.FC<IProps> = ({
   handleQSubmit,
   questionText,
   handleASubmit,
-  answerText,
   isMine,
 }) => {
-  console.log(questions);
   return (
     <Container>
       <Header>
         <Dot />
         <Title>질문과 답변</Title>
       </Header>
-      <Wrapper>
+      <AskForm>
         <QInput value={questionText.value} onChange={questionText.onChange} />
-        <QButton onClick={handleQSubmit}>질문등록</QButton>
-      </Wrapper>
-      <QnAContainer>
-        {questions.map((question) => {
-          return (
-            <>
-              <QnAItem>
+        <QButton onClick={handleQSubmit}>등록</QButton>
+      </AskForm>
+      <QnAList>
+        {questions.map((question, index) => (
+          <QnAItem key={index}>
+            <QContainer>
+              <QUser
+                onClick={() =>
+                  (window.location.href = `/profile/${question.user.id}`)
+                }
+              >
                 <Avatar />
-                <QUser
-                  onClick={() =>
-                    (window.location.href = `/profile/${question.user.id}`)
-                  }
-                >
-                  {question.user.username}
-                </QUser>
-                <QText>{question.text}</QText>
-              </QnAItem>
+                {question.user.username}
+              </QUser>
+              <QText>{question.text}</QText>
+            </QContainer>
+            <Row>
               {question.answer && <Answer>{question.answer.text}</Answer>}
               {!question.answer && isMine && (
-                <AnswerForm>
-                  <AInput
-                    value={answerText.value}
-                    onChange={answerText.onChange}
-                  ></AInput>
-                  <AButton onClick={handleASubmit}>답변등록</AButton>
-                </AnswerForm>
+                <AContainer onSubmit={handleASubmit} id={`${question.id}`}>
+                  <AInput />
+                  <AButton>등록</AButton>
+                </AContainer>
               )}
-            </>
-          );
-        })}
-      </QnAContainer>
+            </Row>
+          </QnAItem>
+        ))}
+      </QnAList>
     </Container>
   );
 };
