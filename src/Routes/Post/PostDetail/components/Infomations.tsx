@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Post, postCategoryEnum } from "../../../../Entities/Post.entity";
-import { Dot, HeartEmpty, HeartFull } from "../../../../Utils/Icons";
+import { Dot } from "../../../../Utils/Icons";
+import ToggleLikeBtn from "./ToggleLikeBtn";
 
 const Container = styled.div`
   height: 100%;
@@ -10,9 +11,8 @@ const Container = styled.div`
 
 interface IProps {
   post: Post;
-  onLikeBtnClick: any;
-  isLiked: boolean;
   numOfApplications: number;
+  isLiked: any;
 }
 const Header = styled.div`
   display: flex;
@@ -43,38 +43,26 @@ const HeadCell = styled.td`
   padding: 15px;
 `;
 const DataCell = styled.td`
-  opacity: 0.5;
+  opacity: 0.7;
+  :hover {
+    color: ${(props) => props.theme.deppOrangeColor};
+  }
 `;
 const UserCell = styled.td`
-  opacity: 0.5;
+  opacity: 0.7;
   :hover {
     cursor: pointer;
     color: ${(props) => props.theme.deppOrangeColor};
   }
 `;
 
-const LikeBtn = styled.button`
-  background: none;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  justify-self: flex-end;
-  align-self: flex-end;
-  height: 7%;
-  border-top: ${(props) => props.theme.border};
-`;
-
 const Description = styled.div`
   padding: 50px;
+  line-height: 2;
 `;
-const Infomation: React.FC<IProps> = ({
-  post,
-  onLikeBtnClick,
-  isLiked,
-  numOfApplications,
-}) => {
+const Infomation: React.FC<IProps> = ({ post, numOfApplications, isLiked }) => {
   const {
+    id,
     title,
     category,
     date,
@@ -159,9 +147,7 @@ const Infomation: React.FC<IProps> = ({
         </Table>
         <Description>{description}</Description>
       </Body>
-      <LikeBtn onClick={onLikeBtnClick}>
-        {isLiked ? <HeartFull /> : <HeartEmpty />}
-      </LikeBtn>
+      <ToggleLikeBtn postId={id} isLiked={isLiked} />
     </Container>
   );
 };
