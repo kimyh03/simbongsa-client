@@ -57,8 +57,10 @@ export const TOGGLE_APPLY = gql`
 `;
 
 export const HANDLE_APPLICATION = gql`
-  mutation handleApplication($postId: Float!, $status: String!) {
-    handleApplication(args: { postId: $postId, status: $status }) {
+  mutation handleApplication($applicationId: Float!, $status: String!) {
+    handleApplication(
+      args: { applicationId: $applicationId, status: $status }
+    ) {
       ok
     }
   }

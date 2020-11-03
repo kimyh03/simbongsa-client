@@ -64,7 +64,7 @@ export default withRouter(
           } catch (error) {
             toast.error(error.message);
           } finally {
-            window.location.reload();
+            window.location.href = "/";
           }
         }
       };
@@ -147,20 +147,35 @@ export default withRouter(
 
       const onHnadleApplyBtnClick = async (event: any) => {
         const status = event.target.value;
+        const applicationId = +event.target.id;
         try {
           if (status === applicationStatus.accepted) {
-            await handleApply({
-              variables: { postId, status: applicationStatus.accepted },
-            });
+            if (
+              window.confirm("해당 사용자의 활동지원 신청을 수락하시겠습니까?")
+            ) {
+              await handleApply({
+                variables: {
+                  applicationId,
+                  status: applicationStatus.accepted,
+                },
+              });
+            }
           } else if (status === applicationStatus.rejected) {
-            await handleApply({
-              variables: { postId, status: applicationStatus.rejected },
-            });
+            if (
+              window.confirm("해당 사용자의 활동지원 신청을 거절하시겠습니까?")
+            ) {
+              await handleApply({
+                variables: {
+                  applicationId,
+                  status: applicationStatus.rejected,
+                },
+              });
+            }
           }
         } catch (error) {
           toast.error(error.message);
         } finally {
-          window.location.reload();
+          //  window.location.reload();
         }
       };
 

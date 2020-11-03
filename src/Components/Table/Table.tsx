@@ -164,7 +164,7 @@ const Table: React.FC<IProps> = ({
               if (application.status === applicationStatus.pendding)
                 status = "심사중";
               if (application.status === applicationStatus.accepted)
-                status = "완료";
+                status = "합격";
               if (application.status === applicationStatus.rejected)
                 status = "거절";
               return (

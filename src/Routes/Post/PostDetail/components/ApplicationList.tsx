@@ -23,10 +23,6 @@ const ApplicationItem = styled.li`
   align-items: center;
   padding: 25px 0;
   border-bottom: ${(props) => props.theme.border};
-  :hover {
-    cursor: pointer;
-    color: ${(props) => props.theme.deppOrangeColor};
-  }
 `;
 const Title = styled.div`
   font-weight: 700;
@@ -34,7 +30,12 @@ const Title = styled.div`
   margin-left: 20px;
 `;
 
-const UserName = styled.div``;
+const UserName = styled.div`
+  :hover {
+    cursor: pointer;
+    color: ${(props) => props.theme.deppOrangeColor};
+  }
+`;
 const ButtonContainer = styled.div``;
 const RejectButton = styled.button`
   padding: 7px 10px;
@@ -64,35 +65,37 @@ const ApplicationList: React.FC<IProps> = ({
         <Title>현재 신청자</Title>
       </Header>
       <Body>
-        {applications.map((application) => (
-          <>
-            <ApplicationItem
+        {applications.map((application, index) => (
+          <ApplicationItem key={index}>
+            <Avatar size={"40px"} />
+            <UserName
               onClick={() =>
                 (window.location.href = `/profile/${application.user.id}`)
               }
             >
-              <Avatar size={"40px"} />
-              <UserName>{application.user.username}</UserName>
-              {isMine ? (
-                <ButtonContainer>
-                  <RejectButton
-                    value={applicationStatus.rejected}
-                    onClick={onHnadleApplyBtnClick}
-                  >
-                    거절
-                  </RejectButton>
-                  <AcceptButton
-                    value={applicationStatus.accepted}
-                    onClick={onHnadleApplyBtnClick}
-                  >
-                    수락
-                  </AcceptButton>
-                </ButtonContainer>
-              ) : (
-                <Spacer></Spacer>
-              )}
-            </ApplicationItem>
-          </>
+              {application.user.username}
+            </UserName>
+            {isMine && application.status === applicationStatus.pendding ? (
+              <ButtonContainer>
+                <RejectButton
+                  id={`${application.id}`}
+                  value={applicationStatus.rejected}
+                  onClick={onHnadleApplyBtnClick}
+                >
+                  거절
+                </RejectButton>
+                <AcceptButton
+                  id={`${application.id}`}
+                  value={applicationStatus.accepted}
+                  onClick={onHnadleApplyBtnClick}
+                >
+                  수락
+                </AcceptButton>
+              </ButtonContainer>
+            ) : (
+              <Spacer></Spacer>
+            )}
+          </ApplicationItem>
         ))}
       </Body>
     </Container>
