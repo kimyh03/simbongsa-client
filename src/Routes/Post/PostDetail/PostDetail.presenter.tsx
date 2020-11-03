@@ -13,15 +13,13 @@ interface IProps {
   onOpenNCloseBtnClick: () => Promise<void>;
   handleQSubmit: () => Promise<void>;
   questionText: UseInputIterface;
-  handleASubmit: () => Promise<void>;
-  answerText: UseInputIterface;
+  handleASubmit: (event: any) => void;
   onCompleteBtnClick: () => Promise<void>;
-  onLikeBtnClick: () => Promise<void>;
   onApplyBtnClick: () => Promise<void>;
   onHnadleApplyBtnClick: (event: React.MouseEvent) => void;
   isMine: boolean;
-  isLiked: boolean;
   isApplied: boolean;
+  isLiked: any;
   post: Post;
   questions: Question[];
   applications: Application[];
@@ -76,7 +74,7 @@ const EditBtn = styled.button`
 const QnAContainer = styled.div`
   margin-top: 30px;
   width: 100%;
-  min-height: 300px;
+  min-height: 200px;
 `;
 const ToggleApplyBtn = styled.button`
   margin-top: 30px;
@@ -122,17 +120,15 @@ const PostDetailPresenter: React.FC<IProps> = ({
   handleQSubmit,
   questionText,
   handleASubmit,
-  answerText,
   onCompleteBtnClick,
-  onLikeBtnClick,
   onApplyBtnClick,
   onHnadleApplyBtnClick,
   isMine,
-  isLiked,
   isApplied,
   post,
   questions,
   applications,
+  isLiked,
 }) => (
   <Container>
     {isMine ? (
@@ -148,9 +144,8 @@ const PostDetailPresenter: React.FC<IProps> = ({
     <Row>
       <InfomationContainer>
         <Infomation
-          post={post}
-          onLikeBtnClick={onLikeBtnClick}
           isLiked={isLiked}
+          post={post}
           numOfApplications={applications.length}
         />
       </InfomationContainer>
@@ -167,7 +162,7 @@ const PostDetailPresenter: React.FC<IProps> = ({
     ) : isMine ? (
       <Row>
         <ToggleOpenAndCloseBtn onClick={onOpenNCloseBtnClick}>
-          {post.isOpened ? "모집 중단" : "모집 고고"}
+          {post.isOpened ? "모집 중단" : "모집 시작"}
         </ToggleOpenAndCloseBtn>
         <CompleteBtn onClick={onCompleteBtnClick}>활동 종료</CompleteBtn>
       </Row>
@@ -182,7 +177,6 @@ const PostDetailPresenter: React.FC<IProps> = ({
         handleQSubmit={handleQSubmit}
         questionText={questionText}
         handleASubmit={handleASubmit}
-        answerText={answerText}
         isMine={isMine}
       />
     </QnAContainer>

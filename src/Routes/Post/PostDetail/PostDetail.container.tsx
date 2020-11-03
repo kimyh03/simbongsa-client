@@ -13,7 +13,6 @@ import {
   DELETE_POST,
   GET_POST_DETAIL,
   HANDLE_APPLICATION,
-  TOGGLE_LIKE,
   TOGGLE_OPEN_CLOSE,
   CREATE_ANSWER,
 } from "./PostDetail.queries";
@@ -37,19 +36,14 @@ export default withRouter(
     const [createQuestion] = useMutation(CREATE_QUESTION, {
       variables: { postId, text: questionText.value },
     });
-    const answerText = UseInput("");
-    const [createAnswer] = useMutation(CREATE_ANSWER, {
-      variables: { postId, text: answerText.value },
-    });
+    const [createAnswer] = useMutation(CREATE_ANSWER);
     const [completePost] = useMutation(COMPLETE_POST, {
       variables: { postId },
     });
-    const [toggleLike] = useMutation(TOGGLE_LIKE, { variables: { postId } });
     const [toggleApply] = useMutation(TOGGLE_APPLY, {
       variables: { postId },
     });
     const [handleApply] = useMutation(HANDLE_APPLICATION);
-
     if (loading) return <Loader />;
     else if (!loading && data?.getPostDetail?.post) {
       const {
@@ -64,58 +58,90 @@ export default withRouter(
       } = data;
 
       const onDeleteBtnClick = async () => {
-        try {
-          await deletePost();
-        } catch (error) {
-          toast.error(error.message);
+        if (window.confirm("모집 공고를 삭제하시겠습니까?")) {
+          try {
+            await deletePost();
+          } catch (error) {
+            toast.error(error.message);
+          } finally {
+            window.location.reload();
+          }
         }
       };
 
       const onOpenNCloseBtnClick = async () => {
-        try {
-          await toggleOpenAndClose();
-        } catch (error) {
-          toast.error(error.message);
+        let message;
+        post.isOpened
+          ? (message = "인원모집을 중단하시겠습니까?")
+          : (message = "인원 모집을 시작하시겠습니까?");
+        if (window.confirm(message)) {
+          try {
+            await toggleOpenAndClose();
+          } catch (error) {
+            toast.error(error.message);
+          } finally {
+            window.location.reload();
+          }
         }
       };
 
       const handleQSubmit = async () => {
-        try {
-          await createQuestion();
-        } catch (error) {
-          toast.error(error.message);
+        if (window.confirm("질문을 등록하시겠습니까?")) {
+          try {
+            await createQuestion();
+          } catch (error) {
+            toast.error(error.message);
+          } finally {
+            window.location.reload();
+          }
         }
       };
 
-      const handleASubmit = async () => {
-        try {
-          await createAnswer();
-        } catch (error) {
-          toast.error(error.message);
+      const handleASubmit = async (event: any) => {
+        event.preventDefault();
+        const questionId = +event.target.id;
+        const text = event.target.children[0].value;
+        if (window.confirm("답변을 등록하시겠습니까?")) {
+          try {
+            await createAnswer({ variables: { questionId, text } });
+          } catch (error) {
+            toast.error(error.message);
+          } finally {
+            window.location.reload();
+          }
         }
       };
 
       const onCompleteBtnClick = async () => {
-        try {
-          await completePost();
-        } catch (error) {
-          toast.error(error.message);
-        }
-      };
-
-      const onLikeBtnClick = async () => {
-        try {
-          await toggleLike();
-        } catch (error) {
-          toast.error(error.message);
+        if (
+          window.confirm(
+            "활동이 성공적으로 마무리 되었습니까? 참가자에게 봉사활동 인증서가 발급됩니다."
+          )
+        ) {
+          try {
+            await completePost();
+          } catch (error) {
+            toast.error(error.message);
+          } finally {
+            window.location.reload();
+          }
         }
       };
 
       const onApplyBtnClick = async () => {
-        try {
-          await toggleApply();
-        } catch (error) {
-          toast.error(error.message);
+        let message;
+        isApplied
+          ? (message = "활동신청을 취소하시겠습니까?")
+          : (message = "활동을 신청하시겠습니까?");
+
+        if (window.confirm(message)) {
+          try {
+            await toggleApply();
+          } catch (error) {
+            toast.error(error.message);
+          } finally {
+            window.location.reload();
+          }
         }
       };
 
@@ -133,8 +159,11 @@ export default withRouter(
           }
         } catch (error) {
           toast.error(error.message);
+        } finally {
+          window.location.reload();
         }
       };
+
       return (
         <PostDetailPresenter
           onDeleteBtnClick={onDeleteBtnClick}
@@ -142,13 +171,11 @@ export default withRouter(
           handleQSubmit={handleQSubmit}
           questionText={questionText}
           handleASubmit={handleASubmit}
-          answerText={answerText}
           onCompleteBtnClick={onCompleteBtnClick}
-          onLikeBtnClick={onLikeBtnClick}
+          isLiked={isLiked}
           onApplyBtnClick={onApplyBtnClick}
           onHnadleApplyBtnClick={onHnadleApplyBtnClick}
           isMine={isMine}
-          isLiked={isLiked}
           isApplied={isApplied}
           post={post}
           questions={questions}
