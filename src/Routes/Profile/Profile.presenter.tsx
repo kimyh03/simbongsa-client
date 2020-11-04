@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 import { Helmet } from "react-helmet";
 import styled from "styled-components";
@@ -24,6 +25,17 @@ const Section = styled.section`
 `;
 
 const Title = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-size: 21px;
+  font-weight: 700;
+`;
+
+const TopTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 10px;
   font-size: 21px;
   font-weight: 700;
@@ -40,7 +52,10 @@ const ProfileCard = styled.div`
   border-radius: 5px;
 `;
 const AvatarCoulmn = styled.div`
-  margin: 0 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 const DetailCoulmn = styled.div`
   width: 250px;
@@ -60,6 +75,42 @@ const UserEmail = styled.div`
   opacity: 0.7;
   margin-top: 10px;
 `;
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+`;
+const Input = styled.input`
+  border: ${(props) => props.theme.border};
+  border-radius: 5px;
+  width: 75%;
+`;
+const Button = styled.button`
+  background-color: ${(props) => props.theme.deppOrangeColor};
+  color: white;
+  padding: 3px 10px;
+  border-radius: 5px;
+  font-weight: 700;
+  margin-top: 5px;
+`;
+const LogoutBtn = styled.button`
+  background-color: ${(props) => props.theme.deppOrangeColor};
+  color: white;
+  padding: 3px 10px;
+  border-radius: 5px;
+  font-weight: 700;
+  display: flex;
+  justify-self: flex-end;
+  align-self: flex-end;
+`;
+const TitleText = styled.div`
+  margin-left: 20px;
+`;
+const Wrapper = styled.div`
+  display: flex;
+`;
 
 interface IProps {
   onClickLogOut: () => void;
@@ -67,6 +118,8 @@ interface IProps {
   user: User;
   likes: Like[];
   applications: Application[];
+  handleSubmit: (event: React.FormEvent<Element>) => void;
+  onChange: any;
 }
 
 const ProfilePresenter: React.FC<IProps> = ({
@@ -75,8 +128,9 @@ const ProfilePresenter: React.FC<IProps> = ({
   user,
   likes,
   applications,
+  handleSubmit,
+  onChange,
 }) => {
-  console.log(user.posts);
   const postCount = user.posts?.length || 0;
   const activityCount = user.activityCount;
   const activityTime = user.activityTime;
@@ -86,12 +140,20 @@ const ProfilePresenter: React.FC<IProps> = ({
         <title>Profile | 자원봉사1365</title>
       </Helmet>
       <Section>
-        <Title>
-          <Dot /> 내정보
-        </Title>
+        <TopTitle>
+          <Wrapper>
+            <Dot />
+            <TitleText>사용자 정보</TitleText>
+          </Wrapper>
+          <LogoutBtn onClick={onClickLogOut}>로그아웃</LogoutBtn>
+        </TopTitle>
         <ProfileCard>
           <AvatarCoulmn>
             <Avatar size={"150px"} />
+            <Form onSubmit={handleSubmit}>
+              <Input onChange={onChange} type={"file"} accept={".jpg, .png"} />
+              <Button>변경하기</Button>
+            </Form>
           </AvatarCoulmn>
           <DetailCoulmn>
             <Username>{user.username}</Username>
@@ -108,7 +170,8 @@ const ProfilePresenter: React.FC<IProps> = ({
         <>
           <Section>
             <Title>
-              <Dot /> 관심 모집공고
+              <Dot />
+              <TitleText>관심 모집공고</TitleText>
             </Title>
             <Table
               type={TableTypeEnum.Like}
@@ -125,7 +188,7 @@ const ProfilePresenter: React.FC<IProps> = ({
           </Section>
           <Section>
             <Title>
-              <Dot /> 참가신청 모집공고
+              <Dot /> <TitleText>참가신청 모집공고</TitleText>
             </Title>
             <Table
               type={TableTypeEnum.Application}
@@ -144,7 +207,8 @@ const ProfilePresenter: React.FC<IProps> = ({
       ) : null}
       <Section>
         <Title>
-          <Dot /> 작성한 모집공고
+          <Dot />
+          <TitleText>작성한 모집공고</TitleText>
         </Title>
         <Table
           type={TableTypeEnum.Post}
@@ -161,7 +225,8 @@ const ProfilePresenter: React.FC<IProps> = ({
       </Section>
       <Section>
         <Title>
-          <Dot /> 자원 봉사활동 인증서
+          <Dot />
+          <TitleText> 자원 봉사활동 인증서</TitleText>
         </Title>
         <Table
           type={TableTypeEnum.Certificate}
