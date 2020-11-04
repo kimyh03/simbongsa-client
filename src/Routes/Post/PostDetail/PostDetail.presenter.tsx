@@ -61,16 +61,6 @@ const DleteBtn = styled.button`
   font-size: 14px;
   border-radius: 5px;
 `;
-const EditBtn = styled.button`
-  background-color: ${(props) => props.theme.deppOrangeColor};
-  font-weight: 700;
-  opacity: 0.9;
-  padding: 8px 17px;
-  color: white;
-  font-size: 14px;
-  margin-left: 20px;
-  border-radius: 5px;
-`;
 const QnAContainer = styled.div`
   margin-top: 30px;
   width: 100%;
@@ -134,11 +124,6 @@ const PostDetailPresenter: React.FC<IProps> = ({
     {isMine ? (
       <ButtonContainer>
         <DleteBtn onClick={onDeleteBtnClick}>삭제</DleteBtn>
-        <EditBtn
-          onClick={() => (window.location.href = `/post/${post.id}/edit`)}
-        >
-          수정
-        </EditBtn>
       </ButtonContainer>
     ) : null}
     <Row>
