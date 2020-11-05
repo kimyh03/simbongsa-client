@@ -2,12 +2,12 @@ import React from "react";
 import Loader from "react-loader-spinner";
 import styled from "styled-components";
 
-const Container = styled.div`
+const Container = styled.div<{ height: string }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 90vh;
+  min-height: ${(props) => props.height};
   opacity: 0.7;
 `;
 
@@ -17,8 +17,8 @@ const Text = styled.div`
   color: ${(props) => props.theme.deppOrangeColor};
 `;
 
-export default () => (
-  <Container>
+export default ({ height = "90vh" }) => (
+  <Container height={height}>
     <Loader
       type="TailSpin"
       color="#f36200"
