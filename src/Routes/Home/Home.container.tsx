@@ -14,7 +14,7 @@ export default () => {
     list: [],
   });
   const [page, setPage] = useState(1);
-  const [openOnly, setOpenOnly] = useState(true);
+  const [openOnly, setOpenOnly] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
   const { data, loading } = useQuery(GET_POSTS, {
@@ -88,6 +88,7 @@ export default () => {
         categories={categories.list}
         rigions={rigions.list}
         SearchTermInput={SearchTermInput}
+        openOnly={openOnly}
       />
       {!loading && data?.getPosts ? (
         <List

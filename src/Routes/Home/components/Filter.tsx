@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {
   postCategoryEnum,
@@ -12,6 +13,8 @@ const Header = styled.div`
   margin-top: 20px;
   padding: 30px 0;
   display: flex;
+  width: 100%;
+  justify-content: space-between;
   height: 8%;
   align-items: center;
   border-bottom: ${(props) => props.theme.border};
@@ -45,6 +48,7 @@ const FilterContainer = styled.div`
   margin-top: 30px;
   width: 100%;
   border: ${(props) => props.theme.border};
+  border-bottom: none;
 `;
 const FilterItem = styled.div`
   display: flex;
@@ -56,7 +60,16 @@ const Subject = styled.div`
   width: 100px;
   margin-left: 15px;
 `;
-const CheckBox = styled.input``;
+const CheckBox = styled.div<{ isChecked: Boolean }>`
+  background-color: ${(props) => (props.isChecked ? "#f36200" : "none")};
+  width: 12px;
+  height: 12px;
+  border: ${(props) => props.theme.border};
+  margin-right: 10px;
+  :hover {
+    cursor: pointer;
+  }
+`;
 const SearchBox = styled.input`
   width: 80%;
   padding: 20px;
@@ -70,6 +83,18 @@ const SearchBtn = styled.button`
   margin-left: 10px;
   height: 40px;
 `;
+const Wrapper = styled.div`
+  display: flex;
+`;
+const CreateBtn = styled.button`
+  background-color: ${(props) => props.theme.deppOrangeColor};
+  font-weight: 700;
+  opacity: 0.9;
+  padding: 8px 17px;
+  color: white;
+  font-size: 14px;
+  border-radius: 5px;
+`;
 interface IProps {
   onSearch: any;
   onClickCategory: any;
@@ -78,6 +103,7 @@ interface IProps {
   categories: string[];
   rigions: string[];
   SearchTermInput: UseInputIterface;
+  openOnly: boolean;
 }
 const Filter: React.FC<IProps> = ({
   onSearch,
@@ -87,15 +113,22 @@ const Filter: React.FC<IProps> = ({
   categories,
   SearchTermInput,
   rigions,
+  openOnly,
 }) => {
+  const [isChecked, setIsChecked] = useState(openOnly);
   return (
     <>
       <Helmet>
         <title>Home | 자원봉사1365</title>
       </Helmet>
       <Header>
-        <Dot />
-        <Title>봉사조회</Title>
+        <Wrapper>
+          <Dot />
+          <Title>봉사조회</Title>
+        </Wrapper>
+        <Link to={"/post/create"}>
+          <CreateBtn>글쓰기</CreateBtn>
+        </Link>
       </Header>
       <FilterContainer>
         <FilterItem>
@@ -199,8 +232,9 @@ const Filter: React.FC<IProps> = ({
           <Dot />
           <Subject>상태</Subject>
           <CheckBox
-            type={"CheckBox"}
+            isChecked={isChecked}
             onClick={(event) => {
+              setIsChecked(!isChecked);
               onCheckIsOpen(event);
             }}
           />
