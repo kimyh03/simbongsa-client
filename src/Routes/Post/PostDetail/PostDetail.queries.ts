@@ -110,6 +110,7 @@ export const GET_POST_DETAIL = gql`
       applications {
         id
         createdAt
+        status
         user {
           id
           avatar

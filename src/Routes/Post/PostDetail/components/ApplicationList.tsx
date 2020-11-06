@@ -65,38 +65,40 @@ const ApplicationList: React.FC<IProps> = ({
         <Title>현재 신청자</Title>
       </Header>
       <Body>
-        {applications.map((application, index) => (
-          <ApplicationItem key={index}>
-            <Avatar size={"40px"} />
-            <UserName
-              onClick={() =>
-                (window.location.href = `/profile/${application.user.id}`)
-              }
-            >
-              {application.user.username}
-            </UserName>
-            {isMine && application.status === applicationStatus.pendding ? (
-              <ButtonContainer>
-                <RejectButton
-                  id={`${application.id}`}
-                  value={applicationStatus.rejected}
-                  onClick={onHnadleApplyBtnClick}
-                >
-                  거절
-                </RejectButton>
-                <AcceptButton
-                  id={`${application.id}`}
-                  value={applicationStatus.accepted}
-                  onClick={onHnadleApplyBtnClick}
-                >
-                  수락
-                </AcceptButton>
-              </ButtonContainer>
-            ) : (
-              <Spacer></Spacer>
-            )}
-          </ApplicationItem>
-        ))}
+        {applications.map((application, index) => {
+          return (
+            <ApplicationItem key={index}>
+              <Avatar size={"40px"} />
+              <UserName
+                onClick={() =>
+                  (window.location.href = `/profile/${application.user.id}`)
+                }
+              >
+                {application.user.username}
+              </UserName>
+              {isMine && application.status === applicationStatus.pendding ? (
+                <ButtonContainer>
+                  <RejectButton
+                    id={`${application.id}`}
+                    value={applicationStatus.rejected}
+                    onClick={onHnadleApplyBtnClick}
+                  >
+                    거절
+                  </RejectButton>
+                  <AcceptButton
+                    id={`${application.id}`}
+                    value={applicationStatus.accepted}
+                    onClick={onHnadleApplyBtnClick}
+                  >
+                    수락
+                  </AcceptButton>
+                </ButtonContainer>
+              ) : (
+                <Spacer></Spacer>
+              )}
+            </ApplicationItem>
+          );
+        })}
       </Body>
     </Container>
   );

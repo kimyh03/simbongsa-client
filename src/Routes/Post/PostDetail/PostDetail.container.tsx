@@ -175,7 +175,7 @@ export default withRouter(
         } catch (error) {
           toast.error(error.message);
         } finally {
-          //  window.location.reload();
+          window.location.reload();
         }
       };
 
