@@ -142,9 +142,7 @@ const PostDetailPresenter: React.FC<IProps> = ({
         />
       </ApplicationListContainer>
     </Row>
-    {post.isCompleted ? (
-      <CompletedIndicator>이미 종료된 활동입니다.</CompletedIndicator>
-    ) : isMine ? (
+    {isMine ? (
       <Row>
         <ToggleOpenAndCloseBtn onClick={onOpenNCloseBtnClick}>
           {post.isOpened ? "모집 중단" : "모집 시작"}
@@ -152,10 +150,17 @@ const PostDetailPresenter: React.FC<IProps> = ({
         <CompleteBtn onClick={onCompleteBtnClick}>활동 종료</CompleteBtn>
       </Row>
     ) : (
-      <ToggleApplyBtn onClick={onApplyBtnClick}>
-        {isApplied ? "신청 취소" : "신청하기"}
-      </ToggleApplyBtn>
+      <>
+        {post.isCompleted || !post.isOpened ? (
+          <CompletedIndicator>지금은 모집 기간이 아닙니다.</CompletedIndicator>
+        ) : (
+          <ToggleApplyBtn onClick={onApplyBtnClick}>
+            {isApplied ? "신청 취소" : "신청하기"}
+          </ToggleApplyBtn>
+        )}
+      </>
     )}
+
     <QnAContainer>
       <QnA
         questions={questions}
