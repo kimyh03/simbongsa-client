@@ -90,7 +90,11 @@ export default () => {
         SearchTermInput={SearchTermInput}
       />
       {!loading && data?.getPosts ? (
-        <List onClickPage={onClickPage} data={data.getPosts} />
+        <List
+          onClickPage={onClickPage}
+          data={data.getPosts}
+          currentPage={page}
+        />
       ) : (
         <Loader height="40vh" />
       )}

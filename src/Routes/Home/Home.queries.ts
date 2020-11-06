@@ -20,6 +20,7 @@ export const GET_POSTS = gql`
       posts {
         id
         title
+        description
         category
         rigion
         date
@@ -27,6 +28,7 @@ export const GET_POSTS = gql`
         adress
         recognizedHours
         isOpened
+        isCompleted
       }
       totalCount
       totalPage
