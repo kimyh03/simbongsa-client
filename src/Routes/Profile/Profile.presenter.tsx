@@ -149,7 +149,7 @@ const ProfilePresenter: React.FC<IProps> = ({
         </TopTitle>
         <ProfileCard>
           <AvatarCoulmn>
-            <Avatar size={"150px"} />
+            <Avatar url={user.avatar} size={"150px"} />
             <Form onSubmit={handleSubmit}>
               <Input onChange={onChange} type={"file"} accept={".jpg, .png"} />
               <Button>변경하기</Button>

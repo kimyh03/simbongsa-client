@@ -74,3 +74,11 @@ export const GET_PROFILE = gql`
     }
   }
 `;
+
+export const EDIT_AVATAR = gql`
+  mutation editAvatar($avatarKey: String!) {
+    editAvatar(args: { avatarKey: $avatarKey }) {
+      ok
+    }
+  }
+`;

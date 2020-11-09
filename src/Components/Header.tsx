@@ -118,7 +118,7 @@ const Header: React.FC<IProps> = ({ isLoggedIn }) => {
           {!loading && isLoggedIn ? (
             <a href={`/profile/${data?.getMe?.user?.id}`}>
               <Profile>
-                <Avatar />
+                <Avatar url={data?.getMe?.user?.avatar} />
                 <Greeting>
                   <Name>{data?.getMe?.user?.username} </Name> 님 안녕하세요!
                 </Greeting>

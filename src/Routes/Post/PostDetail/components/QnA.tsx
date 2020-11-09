@@ -147,7 +147,7 @@ const QnA: React.FC<IProps> = ({
                   (window.location.href = `/profile/${question.user.id}`)
                 }
               >
-                <Avatar />
+                <Avatar url={question.user.avatar} />
                 <Username>{question.user.username}</Username>
               </QUser>
               <QText>{question.text}</QText>

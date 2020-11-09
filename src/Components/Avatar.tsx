@@ -8,6 +8,7 @@ const Container = styled.div<{ url: string; size: string }>`
   border-radius: 50%;
   background-image: url(${(props) => props.url});
   background-size: cover;
+  border: ${(props) => props.theme.border};
 `;
 
 interface IProps {
@@ -16,6 +17,7 @@ interface IProps {
 }
 
 const Avatar: React.FC<IProps> = ({ url = noAvatar, size = "35px" }) => {
+  if (!url) url = noAvatar;
   return <Container url={url} size={size}></Container>;
 };
 
