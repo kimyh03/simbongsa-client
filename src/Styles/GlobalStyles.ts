@@ -8,8 +8,7 @@ export default createGlobalStyle`
 
     }
     body{
-        @import url('https://fonts.googleapis.com/earlyaccess/notosanskr.css');
-        font-family: "Noto Sans KR",Arial, sans-serif !important;
+    
     }
     button{
         outline:none;

@@ -120,3 +120,9 @@ export const GET_POST_DETAIL = gql`
     }
   }
 `;
+
+export const GET_ISLOGGEDIN = gql`
+  {
+    isLoggedIn @client
+  }
+`;

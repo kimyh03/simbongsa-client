@@ -8,6 +8,7 @@ import { TOGGLE_LIKE } from "../PostDetail.queries";
 interface IProps {
   isLiked: boolean;
   postId: number;
+  isLoggedIn: boolean;
 }
 
 const Button = styled.button`
@@ -25,23 +26,28 @@ const Button = styled.button`
 const ToggleLikeBtn: React.FunctionComponent<IProps> = ({
   isLiked,
   postId,
+  isLoggedIn,
 }) => {
   const [isLikeS, setIsLike] = useState(isLiked);
   const [toggleLike] = useMutation(TOGGLE_LIKE, {
     variables: { postId: +postId },
   });
   const onClick = async () => {
-    try {
-      if (isLikeS === true) {
-        setIsLike(false);
-        toast.warning("관심 목록에서 제거 되었습니다.");
-      } else {
-        setIsLike(true);
-        toast.success("관심 목록에 추가 되었습니다.");
+    if (!isLoggedIn) {
+      toast.error("로그인 후 이용 할 수 있습니다.");
+    } else {
+      try {
+        if (isLikeS === true) {
+          setIsLike(false);
+          toast.warning("관심 목록에서 제거 되었습니다.");
+        } else {
+          setIsLike(true);
+          toast.success("관심 목록에 추가 되었습니다.");
+        }
+        await toggleLike();
+      } catch (error) {
+        toast.error(error);
       }
-      await toggleLike();
-    } catch (error) {
-      toast.error(error);
     }
   };
   return (

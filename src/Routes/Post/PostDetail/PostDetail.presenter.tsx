@@ -23,6 +23,7 @@ interface IProps {
   post: Post;
   questions: Question[];
   applications: Application[];
+  isLoggedIn: boolean;
 }
 
 const Container = styled.div`
@@ -119,6 +120,7 @@ const PostDetailPresenter: React.FC<IProps> = ({
   questions,
   applications,
   isLiked,
+  isLoggedIn,
 }) => (
   <Container>
     {isMine ? (
@@ -132,6 +134,7 @@ const PostDetailPresenter: React.FC<IProps> = ({
           isLiked={isLiked}
           post={post}
           numOfApplications={applications.length}
+          isLoggedIn={isLoggedIn}
         />
       </InfomationContainer>
       <ApplicationListContainer>

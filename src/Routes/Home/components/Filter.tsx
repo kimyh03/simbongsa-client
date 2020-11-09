@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
-import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 import {
   postCategoryEnum,
@@ -108,6 +108,7 @@ interface IProps {
   rigions: string[];
   SearchTermInput: UseInputIterface;
   openOnly: boolean;
+  isLoggedIn: boolean;
 }
 const Filter: React.FC<IProps> = ({
   onSearch,
@@ -118,6 +119,7 @@ const Filter: React.FC<IProps> = ({
   SearchTermInput,
   rigions,
   openOnly,
+  isLoggedIn,
 }) => {
   const [isChecked, setIsChecked] = useState(openOnly);
   return (
@@ -130,9 +132,17 @@ const Filter: React.FC<IProps> = ({
           <Dot />
           <Title>봉사조회</Title>
         </Wrapper>
-        <Link to={"/post/create"}>
+        <div
+          onClick={() => {
+            if (!isLoggedIn) {
+              toast.error("로그인 후 이용 할 수 있습니다.");
+            } else {
+              window.location.href = `/post/create`;
+            }
+          }}
+        >
           <CreateBtn>글쓰기</CreateBtn>
-        </Link>
+        </div>
       </Header>
       <FilterContainer>
         <FilterItem>
@@ -242,7 +252,7 @@ const Filter: React.FC<IProps> = ({
               onCheckIsOpen(event);
             }}
           />
-          모집 중인 공고만
+          모집 중인 공고만 보기
         </FilterItem>
         <FilterItem>
           <Dot />

@@ -22,7 +22,7 @@ const Title = styled.div`
   font-size: 14px;
   font-weight: 700;
   opacity: 0.9;
-  color: ${(props) => props.theme.orangeColor};
+  color: ${(props) => props.theme.deppOrangeColor};
 `;
 
 const Button = styled.button`

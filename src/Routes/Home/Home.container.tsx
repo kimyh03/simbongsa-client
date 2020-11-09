@@ -5,6 +5,7 @@ import UseInput from "../../Hooks/UseInput";
 import List from "./components/List";
 import Filter from "./components/Filter";
 import { GET_POSTS } from "./Home.queries";
+import { GET_ISLOGGEDIN } from "../Post/PostDetail/PostDetail.queries";
 
 export default () => {
   const [categories, setCategories] = useState<{ list: string[] }>({
@@ -78,28 +79,36 @@ export default () => {
     event.preventDefault();
     setOpenOnly(!openOnly);
   };
-
-  return (
-    <>
-      <Filter
-        onSearch={onSearch}
-        onClickCategory={onClickCategory}
-        onClickRigion={onClickRigion}
-        onCheckIsOpen={onCheckIsOpen}
-        categories={categories.list}
-        rigions={rigions.list}
-        SearchTermInput={SearchTermInput}
-        openOnly={openOnly}
-      />
-      {!loading && data?.getPosts ? (
-        <List
-          onClickPage={onClickPage}
-          data={data.getPosts}
-          currentPage={page}
-        />
-      ) : (
-        <Loader height="40vh" />
-      )}
-    </>
+  const { data: isLoggedInData, loading: isLoggedInLoading } = useQuery(
+    GET_ISLOGGEDIN
   );
+  if (!isLoggedInLoading) {
+    const isLoggedIn = isLoggedInData.isLoggedIn;
+    return (
+      <>
+        <Filter
+          onSearch={onSearch}
+          onClickCategory={onClickCategory}
+          onClickRigion={onClickRigion}
+          onCheckIsOpen={onCheckIsOpen}
+          categories={categories.list}
+          rigions={rigions.list}
+          SearchTermInput={SearchTermInput}
+          openOnly={openOnly}
+          isLoggedIn={isLoggedIn}
+        />
+        {!loading && data?.getPosts ? (
+          <List
+            onClickPage={onClickPage}
+            data={data.getPosts}
+            currentPage={page}
+          />
+        ) : (
+          <Loader height="40vh" />
+        )}
+      </>
+    );
+  } else {
+    return null;
+  }
 };

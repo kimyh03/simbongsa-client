@@ -13,6 +13,7 @@ interface IProps {
   post: Post;
   numOfApplications: number;
   isLiked: any;
+  isLoggedIn: boolean;
 }
 const Header = styled.div`
   display: flex;
@@ -57,7 +58,12 @@ const Description = styled.div`
   padding: 50px;
   line-height: 2;
 `;
-const Infomation: React.FC<IProps> = ({ post, numOfApplications, isLiked }) => {
+const Infomation: React.FC<IProps> = ({
+  post,
+  numOfApplications,
+  isLiked,
+  isLoggedIn,
+}) => {
   const {
     id,
     title,
@@ -144,7 +150,7 @@ const Infomation: React.FC<IProps> = ({ post, numOfApplications, isLiked }) => {
         </Table>
         <Description>{description}</Description>
       </Body>
-      <ToggleLikeBtn postId={id} isLiked={isLiked} />
+      <ToggleLikeBtn isLoggedIn={isLoggedIn} postId={id} isLiked={isLiked} />
     </Container>
   );
 };

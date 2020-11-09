@@ -15,6 +15,7 @@ import {
   HANDLE_APPLICATION,
   TOGGLE_OPEN_CLOSE,
   CREATE_ANSWER,
+  GET_ISLOGGEDIN,
 } from "./PostDetail.queries";
 
 export default withRouter(
@@ -44,8 +45,12 @@ export default withRouter(
       variables: { postId },
     });
     const [handleApply] = useMutation(HANDLE_APPLICATION);
-    if (loading) return <Loader />;
-    else if (!loading && data?.getPostDetail?.post) {
+    const { data: isLoggedInData, loading: isLoggedInLoading } = useQuery(
+      GET_ISLOGGEDIN
+    );
+    if (loading || isLoggedInLoading) return <Loader />;
+    else if (!isLoggedInLoading && !loading && data?.getPostDetail?.post) {
+      const isLoggedIn = isLoggedInData.isLoggedIn;
       const {
         getPostDetail: {
           isMine,
@@ -86,13 +91,17 @@ export default withRouter(
       };
 
       const handleQSubmit = async () => {
-        if (window.confirm("질문을 등록하시겠습니까?")) {
-          try {
-            await createQuestion();
-          } catch (error) {
-            toast.error(error.message);
-          } finally {
-            window.location.reload();
+        if (!isLoggedIn) {
+          toast.error("로그인 후 이용 할 수 있습니다.");
+        } else {
+          if (window.confirm("질문을 등록하시겠습니까?")) {
+            try {
+              await createQuestion();
+            } catch (error) {
+              toast.error(error.message);
+            } finally {
+              window.location.reload();
+            }
           }
         }
       };
@@ -129,18 +138,23 @@ export default withRouter(
       };
 
       const onApplyBtnClick = async () => {
-        let message;
-        isApplied
-          ? (message = "활동신청을 취소하시겠습니까?")
-          : (message = "활동을 신청하시겠습니까?");
+        if (!isLoggedIn) {
+          console.log(isLoggedIn);
+          toast.error("로그인 후 이용 할 수 있습니다.");
+        } else {
+          let message;
+          isApplied
+            ? (message = "활동신청을 취소하시겠습니까?")
+            : (message = "활동을 신청하시겠습니까?");
 
-        if (window.confirm(message)) {
-          try {
-            await toggleApply();
-          } catch (error) {
-            toast.error(error.message);
-          } finally {
-            window.location.reload();
+          if (window.confirm(message)) {
+            try {
+              await toggleApply();
+            } catch (error) {
+              toast.error(error.message);
+            } finally {
+              window.location.reload();
+            }
           }
         }
       };
@@ -195,6 +209,7 @@ export default withRouter(
           post={post}
           questions={questions}
           applications={applications}
+          isLoggedIn={isLoggedIn}
         />
       );
     } else {

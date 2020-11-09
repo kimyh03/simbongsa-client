@@ -234,7 +234,9 @@ const List: React.FC<IProps> = ({ data, onClickPage, currentPage }) => {
                     </Column>
                     <Column width={20}>
                       <ApplicationCountContainer>
-                        <ApplicationCountTitle>모집현황</ApplicationCountTitle>
+                        <ApplicationCountTitle>
+                          지원자 현황
+                        </ApplicationCountTitle>
                         <ApplicationCountNumber>{`${applicationCount} / ${post.NumOfRecruitment}`}</ApplicationCountNumber>
                       </ApplicationCountContainer>
                     </Column>

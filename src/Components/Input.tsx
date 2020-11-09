@@ -15,7 +15,6 @@ const Container = styled.input`
   font-size: 14px;
   text-align: center;
   margin-bottom: 10px;
-  color: ${(props) => props.theme.orangeColor};
   border: ${(props) => props.theme.border};
   :focus {
     outline: ${(props) => props.theme.borderFocus};
