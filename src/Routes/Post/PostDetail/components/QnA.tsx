@@ -66,13 +66,12 @@ const QContainer = styled.div`
   width: 90%;
   margin-bottom: 15px;
   background-color: ${(props) => props.theme.greyBgColor};
-  border-radius: 20px;
+  border-radius: 20px 20px 20px 0;
   padding: 20px;
 `;
 const QUser = styled.div`
   display: flex;
   cursor: pointer;
-  width: 100px;
   justify-content: space-between;
   align-items: center;
   font-weight: 700;
@@ -92,8 +91,8 @@ const AContainer = styled.form`
 const Answer = styled.div`
   background-color: #cecece;
   padding: 20px;
-  padding-right: 100px;
-  border-radius: 20px;
+  padding-left: 40px;
+  border-radius: 20px 20px 0 20px;
   justify-self: flex-end;
   align-self: flex-end;
   text-align: right;
@@ -109,6 +108,9 @@ const Row = styled.div`
   justify-self: flex-end;
   align-self: flex-end;
   width: 80%;
+`;
+const Username = styled.div`
+  margin-left: 15px;
 `;
 
 interface IProps {
@@ -146,7 +148,7 @@ const QnA: React.FC<IProps> = ({
                 }
               >
                 <Avatar />
-                {question.user.username}
+                <Username>{question.user.username}</Username>
               </QUser>
               <QText>{question.text}</QText>
             </QContainer>

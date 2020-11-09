@@ -29,6 +29,10 @@ export const GET_POSTS = gql`
         recognizedHours
         isOpened
         isCompleted
+        NumOfRecruitment
+        applications {
+          id
+        }
       }
       totalCount
       totalPage

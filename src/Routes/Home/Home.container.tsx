@@ -69,10 +69,11 @@ export default () => {
     event.preventDefault();
     const selectedPage = event.currentTarget.value;
     setPage(+selectedPage);
+    window.scrollTo(0, 150);
   };
 
   const onCheckIsOpen = (
-    event: React.MouseEvent<HTMLInputElement, MouseEvent>
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     event.preventDefault();
     setOpenOnly(!openOnly);

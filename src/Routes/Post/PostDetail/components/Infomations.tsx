@@ -44,9 +44,6 @@ const HeadCell = styled.td`
 `;
 const DataCell = styled.td`
   opacity: 0.7;
-  :hover {
-    color: ${(props) => props.theme.deppOrangeColor};
-  }
 `;
 const UserCell = styled.td`
   opacity: 0.7;

@@ -96,10 +96,14 @@ const CreateBtn = styled.button`
   border-radius: 5px;
 `;
 interface IProps {
-  onSearch: any;
-  onClickCategory: any;
-  onClickRigion: any;
-  onCheckIsOpen: any;
+  onSearch: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onClickCategory: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+  onClickRigion: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+  onCheckIsOpen: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   categories: string[];
   rigions: string[];
   SearchTermInput: UseInputIterface;
