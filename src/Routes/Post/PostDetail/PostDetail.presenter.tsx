@@ -146,12 +146,18 @@ const PostDetailPresenter: React.FC<IProps> = ({
       </ApplicationListContainer>
     </Row>
     {isMine ? (
-      <Row>
-        <ToggleOpenAndCloseBtn onClick={onOpenNCloseBtnClick}>
-          {post.isOpened ? "모집 중단" : "모집 시작"}
-        </ToggleOpenAndCloseBtn>
-        <CompleteBtn onClick={onCompleteBtnClick}>활동 종료</CompleteBtn>
-      </Row>
+      <>
+        {post.isCompleted ? (
+          <CompletedIndicator>이미 종료된 활동입니다.</CompletedIndicator>
+        ) : (
+          <Row>
+            <ToggleOpenAndCloseBtn onClick={onOpenNCloseBtnClick}>
+              {post.isOpened ? "모집 중단" : "모집 시작"}
+            </ToggleOpenAndCloseBtn>
+            <CompleteBtn onClick={onCompleteBtnClick}>활동 종료</CompleteBtn>
+          </Row>
+        )}
+      </>
     ) : (
       <>
         {post.isCompleted || !post.isOpened ? (
