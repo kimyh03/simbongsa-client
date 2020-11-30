@@ -2,8 +2,8 @@ import { gql } from "apollo-boost";
 
 export const GET_POSTS = gql`
   query getPosts(
-    $categories: [postCategory!]
-    $rigions: [postRigion!]
+    $categories: [postCategory!]!
+    $rigions: [postRigion!]!
     $page: Float!
     $openOnly: Boolean!
     $searchTerm: String!
