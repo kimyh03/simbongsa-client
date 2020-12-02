@@ -38,11 +38,10 @@ export default withRouter(
         formData.append("file", avatar);
         const data = await axios({
           method: "post",
-          url: "https://52.78.180.64:3000/upload",
+          url: "https://13.124.204.102:3000/upload",
           data: formData,
           headers: { "content-type": "multipart/form-data" },
         });
-
         await editAvatar({ variables: { avatarKey: data.data } });
         window.location.reload();
       } catch (error) {

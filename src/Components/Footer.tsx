@@ -29,20 +29,20 @@ export default () => (
       <ListItem>GitHub link</ListItem>
       <ListItem>
         <a
-          href={"https://github.com/kimyh03/simbongsa-server"}
+          href={"https://github.com/kimyh03/simbongsa-backend"}
           target="_blank"
           rel="noopener noreferrer"
         >
-          Server
+          Backend
         </a>
       </ListItem>
       <ListItem>
         <a
-          href={"https://github.com/kimyh03/simbongsa-client"}
+          href={"https://github.com/kimyh03/simbongsa-frontend"}
           target="_blank"
           rel="noopener noreferrer"
         >
-          Client
+          Frontend
         </a>
       </ListItem>
     </List>
