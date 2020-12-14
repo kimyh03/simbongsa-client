@@ -56,6 +56,7 @@ const AvatarCoulmn = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 20%;
 `;
 const DetailCoulmn = styled.div`
   width: 250px;
@@ -85,7 +86,7 @@ const Form = styled.form`
 const Input = styled.input`
   border: ${(props) => props.theme.border};
   border-radius: 5px;
-  width: 75%;
+  width: 100%;
 `;
 const Button = styled.button`
   background-color: ${(props) => props.theme.deppOrangeColor};
@@ -145,15 +146,25 @@ const ProfilePresenter: React.FC<IProps> = ({
             <Dot />
             <TitleText>사용자 정보</TitleText>
           </Wrapper>
-          <LogoutBtn onClick={onClickLogOut}>로그아웃</LogoutBtn>
+          {isSelf ? (
+            <LogoutBtn onClick={onClickLogOut}>로그아웃</LogoutBtn>
+          ) : (
+            <> </>
+          )}
         </TopTitle>
         <ProfileCard>
           <AvatarCoulmn>
             <Avatar url={user.avatar} size={"150px"} />
-            <Form onSubmit={handleSubmit}>
-              <Input onChange={onChange} type={"file"} accept={".jpg, .png"} />
-              <Button>변경하기</Button>
-            </Form>
+            {isSelf ? (
+              <Form onSubmit={handleSubmit}>
+                <Input
+                  onChange={onChange}
+                  type={"file"}
+                  accept={".jpg, .png"}
+                />
+                <Button>변경하기</Button>
+              </Form>
+            ) : null}
           </AvatarCoulmn>
           <DetailCoulmn>
             <Username>{user.username}</Username>
