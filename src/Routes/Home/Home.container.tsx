@@ -29,14 +29,18 @@ export default () => {
   });
 
   const SearchTermInput = UseInput("");
-  const onSearch = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const onSearch = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     event.preventDefault();
+    setPage(1);
     setSearchTerm(String(SearchTermInput.value));
   };
 
   const onClickCategory = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
+    setPage(1);
     const selectedCategory = event.currentTarget.value;
     const exist = categories.list.includes(selectedCategory);
     let array;
@@ -53,6 +57,7 @@ export default () => {
   const onClickRigion = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
+    setPage(1);
     const selectedRigion = event.currentTarget.value;
     const exist = rigions.list.includes(selectedRigion);
     let array;
@@ -77,6 +82,7 @@ export default () => {
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     event.preventDefault();
+    setPage(1);
     setOpenOnly(!openOnly);
   };
   const { data: isLoggedInData, loading: isLoggedInLoading } = useQuery(

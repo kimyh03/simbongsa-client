@@ -38,7 +38,7 @@ export default withRouter(
         formData.append("file", avatar);
         const data = await axios({
           method: "post",
-          url: "https://13.124.204.102:3000/upload",
+          url: "https://3.34.183.104:3000/upload",
           data: formData,
           headers: { "content-type": "multipart/form-data" },
         });
