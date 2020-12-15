@@ -68,7 +68,7 @@ const ApplicationList: React.FC<IProps> = ({
         {applications.map((application, index) => {
           return (
             <ApplicationItem key={index}>
-              <Avatar size={"40px"} />
+              <Avatar url={application?.user?.avatar} size={"40px"} />
               <UserName
                 onClick={() =>
                   (window.location.href = `/profile/${application.user.id}`)
