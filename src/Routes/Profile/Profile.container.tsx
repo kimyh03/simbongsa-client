@@ -38,7 +38,7 @@ export default withRouter(
         formData.append("file", avatar);
         const data = await axios({
           method: "post",
-          url: "http://api.hoony-portfolio.tk/upload",
+          url: "https://api.hoony-portfolio.tk/upload",
           data: formData,
           headers: { "content-type": "multipart/form-data" },
         });
