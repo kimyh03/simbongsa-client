@@ -2,7 +2,7 @@ import { gql } from "apollo-boost";
 
 export const DELETE_POST = gql`
   mutation deletePost($postId: Float!) {
-    deletePost(args: { postId: $postId }) {
+    deletePost(input: { postId: $postId }) {
       ok
     }
   }
@@ -10,7 +10,7 @@ export const DELETE_POST = gql`
 
 export const TOGGLE_OPEN_CLOSE = gql`
   mutation toggleOpenAndClose($postId: Float!) {
-    toggleOpenAndClose(args: { postId: $postId }) {
+    toggleOpenAndClose(input: { postId: $postId }) {
       ok
     }
   }
@@ -18,7 +18,7 @@ export const TOGGLE_OPEN_CLOSE = gql`
 
 export const CREATE_QUESTION = gql`
   mutation createQuestion($postId: Float!, $text: String!) {
-    createQuestion(args: { postId: $postId, text: $text }) {
+    createQuestion(input: { postId: $postId, text: $text }) {
       ok
     }
   }
@@ -26,7 +26,7 @@ export const CREATE_QUESTION = gql`
 
 export const CREATE_ANSWER = gql`
   mutation answerTheQuestion($questionId: Float!, $text: String!) {
-    answerTheQuestion(args: { questionId: $questionId, text: $text }) {
+    answerTheQuestion(input: { questionId: $questionId, text: $text }) {
       ok
     }
   }
@@ -34,7 +34,7 @@ export const CREATE_ANSWER = gql`
 
 export const COMPLETE_POST = gql`
   mutation completePost($postId: Float!) {
-    completePost(args: { postId: $postId }) {
+    completePost(input: { postId: $postId }) {
       ok
     }
   }
@@ -42,7 +42,7 @@ export const COMPLETE_POST = gql`
 
 export const TOGGLE_LIKE = gql`
   mutation toggleLike($postId: Float!) {
-    toggleLike(args: { postId: $postId }) {
+    toggleLike(input: { postId: $postId }) {
       ok
     }
   }
@@ -50,7 +50,7 @@ export const TOGGLE_LIKE = gql`
 
 export const TOGGLE_APPLY = gql`
   mutation toggleApply($postId: Float!) {
-    toggleApply(args: { postId: $postId }) {
+    toggleApply(input: { postId: $postId }) {
       ok
     }
   }
@@ -59,7 +59,7 @@ export const TOGGLE_APPLY = gql`
 export const HANDLE_APPLICATION = gql`
   mutation handleApplication($applicationId: Float!, $status: String!) {
     handleApplication(
-      args: { applicationId: $applicationId, status: $status }
+      input: { applicationId: $applicationId, status: $status }
     ) {
       ok
     }
@@ -68,7 +68,7 @@ export const HANDLE_APPLICATION = gql`
 
 export const GET_POST_DETAIL = gql`
   query getPostDetail($postId: Float!) {
-    getPostDetail(args: { postId: $postId }) {
+    getPostDetail(input: { postId: $postId }) {
       isMine
       isLiked
       isApplied
@@ -91,30 +91,30 @@ export const GET_POST_DETAIL = gql`
         recognizedHours
         isOpened
         isCompleted
-      }
-      questions {
-        user {
+        applications {
           id
-          username
-          avatar
+          createdAt
+          status
+          user {
+            id
+            avatar
+            username
+          }
         }
-        id
-        text
-        createdAt
-        answer {
+        questions {
+          user {
+            id
+            username
+            avatar
+          }
           id
           text
           createdAt
-        }
-      }
-      applications {
-        id
-        createdAt
-        status
-        user {
-          id
-          avatar
-          username
+          answer {
+            id
+            text
+            createdAt
+          }
         }
       }
     }

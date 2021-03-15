@@ -57,8 +57,6 @@ export default withRouter(
           isLiked,
           isApplied,
           post,
-          questions,
-          applications,
         },
       } = data;
 
@@ -206,9 +204,7 @@ export default withRouter(
           onHnadleApplyBtnClick={onHnadleApplyBtnClick}
           isMine={isMine}
           isApplied={isApplied}
-          post={post}
-          questions={questions}
-          applications={applications}
+          post={post}      
           isLoggedIn={isLoggedIn}
         />
       );

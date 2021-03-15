@@ -14,7 +14,7 @@ export const CREAT_POST = gql`
     $rigion: postRigion!
   ) {
     createPost(
-      args: {
+      input: {
         title: $title
         description: $description
         adress: $adress

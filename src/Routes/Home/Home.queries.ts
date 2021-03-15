@@ -9,7 +9,7 @@ export const GET_POSTS = gql`
     $searchTerm: String!
   ) {
     getPosts(
-      args: {
+      input: {
         categories: $categories
         rigions: $rigions
         page: $page

@@ -8,15 +8,13 @@ export const LOCAL_LOG_OUT = gql`
 
 export const GET_PROFILE = gql`
   query getProfile($userId: Float!) {
-    getProfile(args: { userId: $userId }) {
+    getProfile(input: { userId: $userId }) {
       isSelf
       user {
         id
         email
         username
         avatar
-        activityCount
-        activityTime
         posts {
           id
           title
@@ -37,38 +35,38 @@ export const GET_PROFILE = gql`
           recognizedHours
           date
         }
-      }
-      applications {
-        id
-        status
-        createdAt
-        post {
+        applications {
           id
-          title
-          description
-          category
-          date
-          rigion
-          host
-          isOpened
-          isCompleted
-          recognizedHours
+          status
+          createdAt
+          post {
+            id
+            title
+            description
+            category
+            date
+            rigion
+            host
+            isOpened
+            isCompleted
+            recognizedHours
+          }
         }
-      }
-      likes {
-        id
-        createdAt
-        post {
+        likes {
           id
-          title
-          description
-          category
-          date
-          rigion
-          host
-          isOpened
-          isCompleted
-          recognizedHours
+          createdAt
+          post {
+            id
+            title
+            description
+            category
+            date
+            rigion
+            host
+            isOpened
+            isCompleted
+            recognizedHours
+          }
         }
       }
     }
@@ -77,7 +75,7 @@ export const GET_PROFILE = gql`
 
 export const EDIT_AVATAR = gql`
   mutation editAvatar($avatarKey: String!) {
-    editAvatar(args: { avatarKey: $avatarKey }) {
+    editAvatar(input: { avatarKey: $avatarKey }) {
       ok
     }
   }

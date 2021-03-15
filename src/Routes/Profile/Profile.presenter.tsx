@@ -133,8 +133,11 @@ const ProfilePresenter: React.FC<IProps> = ({
   onChange,
 }) => {
   const postCount = user.posts?.length || 0;
-  const activityCount = user.activityCount;
-  const activityTime = user.activityTime;
+  const activityCount = user.certificates?.length || 0;
+  let activityTime = 0;
+  user.certificates?.forEach((certificate) => {
+    activityTime = certificate.recognizedHours + activityTime;
+  });
   return (
     <Container>
       <Helmet>

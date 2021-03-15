@@ -38,7 +38,7 @@ export default withRouter(
         formData.append("file", avatar);
         const data = await axios({
           method: "post",
-          url: "https://3.34.183.104:3000/upload",
+          url: "http://api.hoony-portfolio.tk/upload",
           data: formData,
           headers: { "content-type": "multipart/form-data" },
         });
@@ -54,14 +54,14 @@ export default withRouter(
 
     if (loading) return <Loader />;
     else if (data?.getProfile?.user) {
-      const { isSelf, user, likes, applications } = data?.getProfile;
+      const { isSelf, user } = data?.getProfile;
       return (
         <ProfilePresenter
           onClickLogOut={onClickLogOut}
           isSelf={isSelf}
           user={user}
-          likes={likes}
-          applications={applications}
+          likes={user.likes}
+          applications={user.applications}
           handleSubmit={handleSubmit}
           onChange={onChange}
         />

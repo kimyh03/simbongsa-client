@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Application } from "../../../Entities/Application.entity";
 import { Post } from "../../../Entities/Post.entity";
-import { Question } from "../../../Entities/Question.entity";
 import { UseInputIterface } from "../../../Utils/UseInputInterface";
 import ApplicationList from "./components/ApplicationList";
 import Infomation from "./components/Infomations";
@@ -21,8 +19,6 @@ interface IProps {
   isApplied: boolean;
   isLiked: any;
   post: Post;
-  questions: Question[];
-  applications: Application[];
   isLoggedIn: boolean;
 }
 
@@ -117,8 +113,6 @@ const PostDetailPresenter: React.FC<IProps> = ({
   isMine,
   isApplied,
   post,
-  questions,
-  applications,
   isLiked,
   isLoggedIn,
 }) => (
@@ -133,14 +127,14 @@ const PostDetailPresenter: React.FC<IProps> = ({
         <Infomation
           isLiked={isLiked}
           post={post}
-          numOfApplications={applications.length}
+          numOfApplications={post.applications?.length || 0}
           isLoggedIn={isLoggedIn}
         />
       </InfomationContainer>
       <ApplicationListContainer>
         <ApplicationList
           isMine={isMine}
-          applications={applications}
+          applications={post.applications || []}
           onHnadleApplyBtnClick={onHnadleApplyBtnClick}
         />
       </ApplicationListContainer>
@@ -172,7 +166,7 @@ const PostDetailPresenter: React.FC<IProps> = ({
 
     <QnAContainer>
       <QnA
-        questions={questions}
+        questions={post.questions || []}
         handleQSubmit={handleQSubmit}
         questionText={questionText}
         handleASubmit={handleASubmit}

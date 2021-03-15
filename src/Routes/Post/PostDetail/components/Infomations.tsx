@@ -60,7 +60,7 @@ const Description = styled.div`
 `;
 const Infomation: React.FC<IProps> = ({
   post,
-  numOfApplications,
+  numOfApplications=0,
   isLiked,
   isLoggedIn,
 }) => {
