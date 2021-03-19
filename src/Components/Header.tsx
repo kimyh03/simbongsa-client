@@ -82,9 +82,11 @@ const Name = styled.div`
 const GET_ME = gql`
   query getMe {
     getMe {      
-        id
+        user{
+          id
         username
         avatar
+        }
     }
   }
 `;
@@ -114,11 +116,11 @@ const Header: React.FC<IProps> = ({ isLoggedIn }) => {
         </a>
         <Spacer>
           {!loading && isLoggedIn ? (
-            <a href={`/profile/${data?.getMe?.id}`}>
+            <a href={`/profile/${data?.getMe?.user.id}`}>
               <Profile>
-                <Avatar url={data?.getMe?.avatar} />
+                <Avatar url={data?.getMe?.user.avatar} />
                 <Greeting>
-                  <Name>{data?.getMe?.username} </Name> 님 안녕하세요!
+                  <Name>{data?.getMe?.user.username} </Name> 님 안녕하세요!
                 </Greeting>
               </Profile>
             </a>
