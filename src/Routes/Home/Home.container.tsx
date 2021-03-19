@@ -41,6 +41,7 @@ export default () => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     setPage(1);
+    setSearchTerm(String(SearchTermInput.value));
     const selectedCategory = event.currentTarget.value;
     const exist = categories.list.includes(selectedCategory);
     let array;
@@ -58,6 +59,7 @@ export default () => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     setPage(1);
+    setSearchTerm(String(SearchTermInput.value));
     const selectedRigion = event.currentTarget.value;
     const exist = rigions.list.includes(selectedRigion);
     let array;
@@ -73,6 +75,7 @@ export default () => {
 
   const onClickPage = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    setSearchTerm(String(SearchTermInput.value));
     const selectedPage = event.currentTarget.value;
     setPage(+selectedPage);
     window.scrollTo(0, 150);
@@ -82,6 +85,7 @@ export default () => {
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     event.preventDefault();
+    setSearchTerm(String(SearchTermInput.value));
     setPage(1);
     setOpenOnly(!openOnly);
   };
