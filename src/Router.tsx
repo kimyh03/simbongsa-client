@@ -11,7 +11,7 @@ export default () => (
     <Switch>
       <Route path={"/"} exact={true} component={Home} />
       <Route path={"/auth"} exact={true} component={Auth} />
-      <Route path={"/post/create"} exact={true} component={PostCreate} />
+      <Route path={"/newPost"} exact={true} component={PostCreate} />
       <Route path={"/post/:id"} exact={true} component={PostDetail} />
       <Route path={"/profile/:id"} exact={true} component={Profile} />
     </Switch>
